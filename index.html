@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FirstSite — сайты и Telegram-боты для бизнеса</title>
+<meta name="description" content="Делаю сайты, Telegram-ботов с онлайн-записью и мини-приложения для предпринимателей.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600&family=Unbounded:wght@500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0c1220; --surface:#131b2e; --line:#243049; --text:#e9edf5; --muted:#8e9ab2;
+  --accent:#4db5f7; --accent-ink:#06223a;
+  --display:'Unbounded','Onest',system-ui,sans-serif; --body:'Onest',system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font:400 19px/1.6 var(--body);-webkit-font-smoothing:antialiased;
+  background-image:radial-gradient(60rem 40rem at 85% -10%,#1b2b4d55,transparent 60%)}
+a{color:inherit;text-decoration:none}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:6px}
+.wrap{max-width:1240px;margin:0 auto;padding:0 32px}
+header{display:flex;justify-content:space-between;align-items:center;padding:22px 0}
+.logo{font:600 24px var(--display);letter-spacing:-.02em}
+nav{display:flex;gap:38px;color:var(--muted);font-size:18px}
+nav a:hover{color:var(--text)}
+.btn{display:inline-block;background:var(--accent);color:var(--accent-ink);font-weight:600;font-size:18px;padding:19px 38px;border-radius:999px;transition:transform .15s,box-shadow .15s}
+.btn:hover{transform:translateY(-2px);box-shadow:0 10px 30px -8px var(--accent)}
+.btn.ghost{background:transparent;color:var(--text);border:1px solid var(--line)}
+.btn.ghost:hover{box-shadow:none;border-color:var(--muted)}
+
+.hero{display:grid;grid-template-columns:1.15fr .85fr;gap:72px;align-items:center;padding:90px 0 150px}
+h1{font:600 clamp(38px,6.2vw,76px)/1.1 var(--display);letter-spacing:-.03em}
+.hero p{color:var(--muted);margin:34px 0 48px;max-width:28em;font-size:23px}
+.hero .cta{display:flex;gap:18px;flex-wrap:wrap}
+
+.phone{background:var(--surface);border:1px solid var(--line);border-radius:28px;padding:26px;box-shadow:0 40px 80px -30px #000a;max-width:480px;margin-left:auto;width:100%}
+.phone-top{display:flex;align-items:center;gap:10px;padding-bottom:14px;border-bottom:1px solid var(--line);font-weight:600;font-size:19px}
+.ava{width:46px;height:46px;border-radius:50%;background:var(--accent);color:var(--accent-ink);display:grid;place-items:center;font-size:16px}
+.chat{display:flex;flex-direction:column;gap:10px;padding-top:16px;min-height:470px}
+.msg{max-width:82%;padding:14px 20px;border-radius:20px;font-size:19px;line-height:1.45;opacity:0;transform:translateY(6px);transition:opacity .35s,transform .35s}
+.msg.show{opacity:1;transform:none}
+.bot{background:#1d2840;border-bottom-left-radius:5px}
+.me{background:var(--accent);color:var(--accent-ink);align-self:flex-end;border-bottom-right-radius:5px}
+.slots{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+.slots span{border:1px solid #3a4a6b;border-radius:10px;padding:7px 16px;font-size:18px}
+
+section{padding:130px 0;border-top:1px solid var(--line)}
+h2{font:600 clamp(32px,4.8vw,56px)/1.15 var(--display);letter-spacing:-.025em;margin-bottom:72px;max-width:16em}
+.rows{display:grid;gap:28px}
+.rows>div{display:grid;grid-template-columns:1fr 1.2fr;gap:40px;align-items:center;padding:52px;background:var(--surface);border:1px solid var(--line);border-radius:28px}
+.rows h3{font:500 30px/1.25 var(--display);letter-spacing:-.02em}
+.rows p{color:var(--muted);font-size:20px}
+.steps{list-style:none;padding:0;display:grid;grid-template-columns:repeat(2,1fr);gap:28px;counter-reset:s}
+.steps li{counter-increment:s;padding:40px;background:var(--surface);border:1px solid var(--line);border-radius:28px;color:var(--muted);font-size:20px}
+.steps li::before{content:counter(s);display:block;font:600 22px var(--display);color:var(--accent);margin-bottom:16px}
+.steps b{display:block;color:var(--text);font-weight:600;font-size:26px;margin-bottom:8px}
+.final{text-align:center;background:var(--surface);border:1px solid var(--line);border-radius:36px;padding:110px 32px}
+.final h2{margin:0 auto 16px}
+.final p{color:var(--muted);margin-bottom:44px;font-size:22px}
+footer{padding:48px 0 64px;color:var(--muted);font-size:17px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
+
+@media(max-width:860px){
+  .hero{grid-template-columns:1fr;padding-top:32px}
+  .phone{margin:0}
+  .rows>div{grid-template-columns:1fr;gap:12px;padding:30px}
+  section{padding:80px 0}
+  .steps{grid-template-columns:1fr}
+  .steps li{padding:28px}
+  nav{display:none}
+}
+@media(prefers-reduced-motion:reduce){.msg{transition:none}html{scroll-behavior:auto}.btn{transition:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <a class="logo" href="#">FirstSite</a>
+    <nav><a href="#services">Услуги</a><a href="#process">Как работаю</a><a href="#contact">Связаться</a></nav>
+    <a class="btn ghost" data-tg href="https://t.me/your_username" style="padding:13px 26px;font-size:17px">Написать</a>
+  </header>
+
+  <main>
+    <div class="hero">
+      <div>
+        <h1>Сайты и Telegram-боты, которые принимают заявки за вас</h1>
+        <p>Клиент выбирает время и записывается сам — в боте или на сайте. Вы получаете готовую заявку и не отвечаете на одни и те же вопросы.</p>
+        <div class="cta">
+          <a class="btn" data-tg href="https://t.me/your_username">Записаться на обсуждение</a>
+          <a class="btn ghost" href="#services">Что я делаю</a>
+        </div>
+      </div>
+      <div class="phone" aria-label="Пример диалога с ботом записи">
+        <div class="phone-top"><div class="ava">✂</div>Запись к мастеру</div>
+        <div class="chat" id="chat">
+          <div class="msg bot">Здравствуйте! На какую услугу записать?</div>
+          <div class="msg me">Стрижка</div>
+          <div class="msg bot">Свободное время завтра:<div class="slots"><span>11:00</span><span>13:30</span><span>16:00</span></div></div>
+          <div class="msg me">13:30</div>
+          <div class="msg bot">Готово, вы записаны на завтра в 13:30. Напомню за час.</div>
+        </div>
+      </div>
+    </div>
+
+    <section id="services">
+      <h2>Что можно заказать</h2>
+      <div class="rows">
+        <div><h3>Сайт под задачу</h3><p>Лендинг или многостраничный сайт: быстрый, аккуратный, с адаптацией под телефон и формой заявки. Подойдёт для услуг, магазина или салона.</p></div>
+        <div><h3>Telegram-бот с записью</h3><p>Клиенты выбирают услугу и время, бот подтверждает запись, напоминает и присылает вам заявки. Без сложных кабинетов и подписок.</p></div>
+        <div><h3>Мини-приложение в Telegram</h3><p>Каталог, цены, запись и личный кабинет внутри мессенджера, где клиенты и так проводят время.</p></div>
+      </div>
+    </section>
+
+    <section id="process">
+      <h2>Как проходит работа</h2>
+      <ol class="steps">
+        <li><b>Обсуждаем задачу</b>Коротко в Telegram: что у вас за бизнес и что нужно клиентам.</li>
+        <li><b>Согласуем план</b>Состав работ, сроки и стоимость фиксируем до старта.</li>
+        <li><b>Делаю и показываю</b>Вы видите промежуточный результат и вносите правки.</li>
+        <li><b>Запуск и поддержка</b>Публикую, объясняю как пользоваться и остаюсь на связи.</li>
+      </ol>
+    </section>
+
+    <section id="contact">
+      <div class="final">
+        <h2>Расскажите, что нужно сделать</h2>
+        <p>Напишите в Telegram — отвечу и предложу решение под ваш бизнес.</p>
+        <a class="btn" data-tg href="https://t.me/your_username">Написать в Telegram</a>
+      </div>
+    </section>
+  </main>
+
+  <footer><span>Сайты, боты и приложения для предпринимателей</span><a data-tg href="https://t.me/your_username">@your_username</a></footer>
+</div>
+
+<script>
+// Замените на свой юзернейм без @
+const TG_USERNAME = 'ya_rasvet';
+document.querySelectorAll('[data-tg]').forEach(a=>{
+  a.href = 'https://t.me/' + TG_USERNAME;
+  if (a.textContent.trim().startsWith('@')) a.textContent = '@' + TG_USERNAME;
+});
+// Диалог появляется по очереди
+const msgs = [...document.querySelectorAll('#chat .msg')];
+const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+msgs.forEach((m,i)=> still ? m.classList.add('show') : setTimeout(()=>m.classList.add('show'), 600 + i*1100));
+</script>
+</body>
+</html>
